@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Info Vis Final Project</title>
+    <script src="chart.js"></script>
+    <script src="https://d3js.org/d3.v4.js%22%3E"></script>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link href="d3.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+
+  <body>
+    <h1>Info Vis Final: TV Time</h1>
+    <p>Dapibus nibh dignissim, ornare porta taciti consectetur condimentum accumsan. Taciti habitant morbi dui ridiculus magna cubilia. Sapien diam sociis consequat luctus faucibus curabitur ridiculus blandit vulputate. Enim class sem facilisi habitant tellus sapien purus dui nec. Elit gravida purus morbi aliquet mollis ultricies? Laoreet sociosqu at scelerisque. Curabitur risus pharetra lorem nisl porttitor facilisis interdum congue dictumst consequat natoque? Hac eu donec nisl dignissim? Aenean aliquam quisque ultrices congue quisque orci sit pretium hendrerit. Sociosqu porta sodales condimentum velit nisl arcu auctor bibendum urna taciti, ultrices.</p>
+    <div style="width: 50%">
+      <canvas id="canvas" height="450" width="600"></canvas>
+    </div>
+
+    <div id="radarChart">
+      <script id="radarChart">
+
+      //These values correlate to working hours per week
+      // var myArray = [40.18,41.58,44.63,39.95,33.09];
+
+      var myArray = [164.53,139.88,109.84,208.59,207.43];
+
+      var chartData = {
+        labels: ["Associate degree", "Bachelor's degree", "Doctoral degree","HS diploma, no college","Less than HS diploma"],
+        datasets: [
+          {
+            label: "My First dataset",
+            fillColor: "rgba(240, 236, 225,0.2)",
+            strokeColor: "rgb(0,0,0)",
+            pointColor: "rgb(0,0,0)",
+            pointStrokeColor: "#e04141",
+            pointHighlightFill: "#e04141",
+            pointHighlightStroke: "rgb(0,0,0)",
+            data: myArray
+          },
+          {
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.2)", //fill color of the conncected points
+            strokeColor: "rgba(255, 255, 255,1)",// changes the stroke color of the line connecting everything
+            pointColor: "rgb(0,0,0)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgb(0,0,0)",
+            data: myArray
+          }
+          ]
+        };
+
+      window.onload = function(){
+        var chartOptions = { responsive : true };
+        var chart = document.getElementById("canvas").getContext("2d");
+        window.myBar = new Chart(chart).Radar(chartData, chartOptions);
+      }
+
+      </script>
+    </div>
+
+
+    <p>For my graph I decided to visualize how people with different education experiences choose how much time they spend watching television. In this visualization we can see a sort of spiral trend, and the overall message that this visualization is conveying is that people with a higher degree of education tend to spend less of their time watching television. The visualization has some interaction where you can hover above each of the points to find out the average amount of time in minutes each degree of education spends watching television. </p>
+
+  </body>
+</html>

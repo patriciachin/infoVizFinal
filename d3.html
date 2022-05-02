@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Info Vis Final Project</title>
+    <script src="chart.js"></script>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <style type="text/css"></style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link href="d3.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+
+  <body>
+    <nav>
+      <h2 class="sr-only">Main Navigation</h2>
+      <ul>
+        <li><a href="#Nate">Graph 1: Nate</a></li>
+        <li><a href="#Patricia">Graph 2: Patricia</a></li>
+        <li><a href="#Sneha">Graph 3: Sneha</a></li>
+        <li><a href="#Extra">Surprise</a></li>
+      </ul>
+    </nav>
+    <h1>Info Vis Final: TV Time</h1>
+
+    <section>
+      <a id="top"></a>
+      <p>
+        Using a dataset with over 21,000 responses. Our group wanted to make an
+        interactive webpage regarding how people spend their time. The most
+        intresting data we wanted to analyze is how much time do Americans spend
+        withing TV. Scroll down to find out
+      </p>
+      <br />
+      <p>
+        Visualizations are important because they help us comprehend data in a
+        way that allows us to recognize patterns and make connections. Our
+        brains are trained to find patterns and being able to see the data makes
+        it simpler to make correlations. The use of design such as color and
+        size allows for us to make more connections between the data and draw
+        more conclusions.
+      </p>
+    </section>
+
+    <!-- Graph 1 Nates Graph -->
+    <section>
+      <a id="Nate"></a>
+      <h2>Time Use by Education- Nate Raczynski</h2>
+
+      <div style="width: 50%">
+        <canvas id="canvas" height="450" width="600"></canvas>
+      </div>
+      <script>
+        //These values correlate to working hours per week
+        // var myArray = [40.18,41.58,44.63,39.95,33.09];
+
+        var myArray = [164.53, 139.88, 109.84, 208.59, 207.43];
+
+        var chartData = {
+          labels: [
+            "Associate degree",
+            "Bachelor's degree",
+            "Doctoral degree",
+            "HS diploma, no college",
+            "Less than HS diploma",
+          ],
+          datasets: [
+            {
+              label: "My First dataset",
+              fillColor: "rgba(240, 236, 225,0.2)",
+              strokeColor: "rgb(0,0,0)",
+              pointColor: "rgb(0,0,0)",
+              pointStrokeColor: "#e04141",
+              pointHighlightFill: "#e04141",
+              pointHighlightStroke: "rgb(0,0,0)",
+              data: myArray,
+            },
+            {
+              label: "My Second dataset",
+              fillColor: "rgba(151,187,205,0.2)", //fill color of the conncected points
+              strokeColor: "rgba(255, 255, 255,1)", // changes the stroke color of the line connecting everything
+              pointColor: "rgb(0,0,0)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgb(0,0,0)",
+              data: myArray,
+            },
+          ],
+        };
+
+        window.onload = function () {
+          var chartOptions = { responsive: true };
+          var chart = document.getElementById("canvas").getContext("2d");
+          window.myBar = new Chart(chart).Radar(chartData, chartOptions);
+        };
+      </script>
+      <p>
+        For my graph I decided to visualize how people with different education
+        experiences choose how much time they spend watching television. In this
+        visualization we can see a sort of spiral trend, and the overall message
+        that this visualization is conveying is that people with a higher degree
+        of education tend to spend less of their time watching television. The
+        visualization has some interaction where you can hover above each of the
+        points to find out the average amount of time in minutes each degree of
+        education spends watching television.
+      </p>
+    </section>
+    <!-- graph1 Patricias Graph-->
+    <section>
+      <a id="Patricia"></a>
+      <h2>Arts, Sports, and TV: Average Weekly Minutues- Patricia Chin</h2>
+      <div>
+        <script>
+          var data = [
+            { timeUse: "Avg TV", mins: 117.11 },
+            { timeUse: "Sports", mins: 2.037 },
+            { timeUse: "Arts", mins: 6.16 },
+          ];
+          //var data = [{"timeUse":"Avg TV","Min":17.11},{"timeUse":"Sports","Min":2.037},{"timeUse":"Arts","Min":6.16}];
+
+          // set the dimensions and margins of the graph
+          var margin = { top: 20, right: 20, bottom: 30, left: 50 },
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+          // set the ranges
+          var y = d3.scaleBand().range([height, 0]).padding(0.1);
+
+          var x = d3.scaleLinear().range([0, width]);
+
+          // append the svg object to the body of the page
+          // append a 'group' element to 'svg'
+          // moves the 'group' element to the top left margin
+          var svg = d3
+            .select("body")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr(
+              "transform",
+              "translate(" + margin.left + "," + margin.top + ")"
+            );
+
+          // format the data
+          data.forEach(function (d) {
+            d.mins = +d.mins;
+          });
+
+          // Scale the range of the data in the domains
+          x.domain([
+            0,
+            d3.max(data, function (d) {
+              return d.mins;
+            }),
+          ]);
+          y.domain(
+            data.map(function (d) {
+              return d.timeUse;
+            })
+          );
+          //y.domain([0, d3.max(data, function(d) { return d.mins; })]);
+
+          // append the rectangles for the bar chart
+          svg
+            .selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            //.attr("x", function(d) { return x(d.mins); })
+            .attr("width", function (d) {
+              return x(d.mins);
+            })
+            .attr("y", function (d) {
+              return y(d.timeUse);
+            })
+            .attr("height", y.bandwidth());
+
+          // add the x Axis
+          svg
+
+            .append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+          // add the y Axis
+          svg.append("g").call(d3.axisLeft(y));
+        </script>
+        <p>
+          How do you spend your time outside of work/ school? I personally do
+          not keep track of that information but I spend a lot of time on social
+          media, binging my favourite shows, and walking my dogs. In python I
+          summed over 3000 respondents answer’s to how much TV, arts, and sports
+          they watch a week (in mins). The reason I chose a horizontal bar graph
+          is for legibility and to emphasize that most spend WAY more time
+          watching TV than pursuing other hobbies.
+        </p>
+      </div>
+    </section>
+
+    <!--graph3 Sneha's Graph-->
+    <section>
+      <h2>Weekly TV Consumption of Age Groups: Sneha Malisetty</h2>
+      <a id="Sneha"></a>
+      <a href="sneha.html">View Sneha's Graph</a>
+      <div id="my_dataviz"></div>
+      <script>
+        // set the dimensions and margins of the graph
+        const margin = { top: 10, right: 30, bottom: 30, left: 60 },
+          width = 460 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
+
+        // append the svg object to the body of the page
+        const svg = d3
+          .select("#my_dataviz")
+          .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        //Read the data
+        d3.csv(
+          "https://raw.githubusercontent.com/smalisetty1/scatterplot/main/timeuse_cleaned.csv"
+        ).then(function (data) {
+          // Add X axis
+          const x = d3.scaleLinear().domain([0, 100]).range([0, width]);
+          svg
+            .append("g")
+            .attr("transform", `translate(0, ${height})`)
+            .call(d3.axisBottom(x));
+
+          // Add Y axis
+          const y = d3.scaleLinear().domain([0, 1500]).range([height, 0]);
+          svg.append("g").call(d3.axisLeft(y));
+
+          // Add dots
+          svg
+            .append("g")
+            .selectAll("dot")
+            .data(data)
+            .join("circle")
+            .attr("cx", function (d) {
+              return x(d.Age);
+            })
+            .attr("cy", function (d) {
+              return y(d.TV);
+            })
+            .attr("r", 1.5)
+            .style("fill", "#69b3a2");
+        });
+      </script>
+
+      <p>
+        The visualization above depicts the relationship between age and how
+        much TV is consumed by people in that age range. As you can see the
+        amount of TV watched increases as the age of the population increases.
+        This indicates that as people get older, they aren't as active as they
+        used to be and in turn start watching more television.
+      </p>
+    </section>
+
+    <!-- memes -->
+    <section>
+      <a id="Extra"></a>
+      <img src="img/spicyData.gif" alt="fun data" class="center" />
+      <figcaption>
+        a visualization of our spicy data used to create these visualizations
+        using d3
+      </figcaption>
+      <img src="img/sadBoi.gif" alt="a sad graph" class="center" />
+      <figcaption>
+        Do badly made graphs make you sad, because they make us very sad.
+      </figcaption>
+      <a id="top" href="#top">Return to Top</a>
+    </section>
+  </body>
+</html>
